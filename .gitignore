@@ -2,13 +2,14 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 *.db
+*.h5
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+uploads/*
 # C extensions
 *.so
 

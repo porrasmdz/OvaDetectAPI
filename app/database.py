@@ -120,6 +120,8 @@ def create_many(table_name: str, data_rows: List[Dict[str, Any]]) -> List[Dict[s
         rows = conn.execute(select_query, inserted_ids).fetchall()
 
         return [dict(r) for r in rows]
+    except Exception as e:
+        print("ERROR CREATING MANY", str(e))
     finally:
         conn.close()
 

@@ -1,13 +1,13 @@
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     role TEXT CHECK(role IN ('doctor', 'technician', 'admin')) NOT NULL,
     avatar TEXT
 );
 CREATE TABLE IF NOT EXISTS image_files (
-    id TEXT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     size INTEGER NOT NULL,
     type TEXT NOT NULL,
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS image_files (
 );
 
 CREATE TABLE IF NOT EXISTS analysis_results (
-    id TEXT PRIMARY KEY,
-    image_id TEXT NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    image_id INTEGER NOT NULL,
     pcos_probability REAL NOT NULL,
     confidence REAL NOT NULL,
     findings TEXT,            -- Podemos guardar como JSON string
