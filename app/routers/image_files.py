@@ -8,8 +8,9 @@ from app.config import settings
 from keras.applications.vgg19 import preprocess_input, VGG19
 from keras.preprocessing import image
 from keras.layers import Dense, Flatten, Dropout
+from keras.models import load_model
 from app.repository import analysis_results
-from keras.models import Model, load_model
+from keras.models import Model
 import cv2
 import numpy as np
 
@@ -26,7 +27,6 @@ IMG_SIZE = 224
 UPLOAD_FOLDER = "uploads"
 AI_FOLDER = "ai"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 model = load_model(f"ai/{settings.MODEL_NAME}")
 
 def apply_clahe(image_array):
