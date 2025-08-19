@@ -117,7 +117,6 @@ async def upload_files(files: List[UploadFile] = File(...)):
         print(image_data)
         created_image = image_file_repositories.create_image_files([image_data])
         print("CREATED IMAGe", created_image)
-        result["image"] = created_image
         # --- Guardar en analysis_results ---
         findings = {"class": "Infectedo" if pred_class==1 else "No Infectado"}
         recommendations = ["Repetir ecografía en fase folicular temprana", "Análisis hormonal para confirmar diagnóstico", "Evaluación de síntomas clínicos asociados"]
@@ -133,7 +132,28 @@ async def upload_files(files: List[UploadFile] = File(...)):
             "error": None
         }
         a_result = analysis_results.create_analysis_results([analysis_data])
-        result["result"] = a_result
+        
+        # Estructura más simple y consistente
+        result = {
+            "id": created_image[0]["id"],
+            "name": created_image[0]["name"],
+            "url": created_image[0]["url"],
+            "size": created_image[0]["size"],
+            "type": created_image[0]["type"],
+            "width": created_image[0]["width"],
+            "height": created_image[0]["height"],
+            "uploaded_at": created_image[0]["uploaded_at"],
+            "status": created_image[0]["status"],
+            "error": created_image[0]["error"],
+            "analysis": {
+                "id": a_result[0]["id"] if a_result else None,
+                "pcos_probability": float(pred_prob),
+                "confidence": float(pred_prob),
+                "findings": findings,
+                "recommendations": recommendations,
+                "prediction": "Infectedo" if pred_class==1 else "No Infectado"
+            }
+        }
 
         created_results.append(result) 
         # print(f"Prediction for {original_file}")

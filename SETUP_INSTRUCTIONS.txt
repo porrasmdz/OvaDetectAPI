@@ -1,0 +1,158 @@
+========================================
+INSTRUCCIONES PARA EJECUTAR OvaDetectAPI
+========================================
+
+REQUISITOS PREVIOS:
+- Python 3.8 o superior
+- pip (gestor de paquetes de Python)
+- Git (opcional, para clonar el proyecto)
+
+PASOS PARA CONFIGURAR Y EJECUTAR EL PROYECTO:
+
+1. NAVEGAR AL DIRECTORIO DEL PROYECTO
+   cd /home/aline/Documents/CODE/ESPOL/IA/OvaDetectAPI
+
+2. CREAR ARCHIVO .env (CONFIGURACIÓN)
+   Crear un archivo llamado ".env" en la raíz del proyecto con el siguiente contenido:
+
+   ----------------------------------------
+   # Configuración del proyecto OvaDetect API
+   PROJECT_NAME="OVA DETECT"
+   
+   # Configuración del modelo
+   MODEL_NAME="sample_model.h5"
+   
+   # Configuración de la base de datos
+   DATABASE_PATH="app.db"
+   
+   # Configuración de archivos
+   MAX_UPLOAD_SIZE_MB="25"
+   SUPPORTED_FILE_TYPES="pdf, jpg"
+   
+   # Configuración de la API
+   API_HOST="127.0.0.1"
+   API_PORT="8000"
+   API_BASE_URL=""
+   ----------------------------------------
+
+   Comando para crear el archivo:
+   cat > .env << 'EOF'
+   # Configuración del proyecto OvaDetect API
+   PROJECT_NAME="OVA DETECT"
+   
+   # Configuración del modelo
+   MODEL_NAME="sample_model.h5"
+   
+   # Configuración de la base de datos
+   DATABASE_PATH="app.db"
+   
+   # Configuración de archivos
+   MAX_UPLOAD_SIZE_MB="25"
+   SUPPORTED_FILE_TYPES="pdf, jpg"
+   
+   # Configuración de la API
+   API_HOST="127.0.0.1"
+   API_PORT="8000"
+   API_BASE_URL=""
+   EOF
+
+3. CREAR CARPETA PARA EL MODELO DE IA
+   mkdir ai
+
+4. OBTENER EL MODELO DE MACHINE LEARNING
+   ¡IMPORTANTE! Necesitas el archivo "sample_model.h5" en la carpeta "ai/"
+   
+   El archivo debe ubicarse en: ai/sample_model.h5
+
+5. CREAR ENTORNO VIRTUAL DE PYTHON
+   python3 -m venv venv
+
+6. ACTIVAR EL ENTORNO VIRTUAL
+   source venv/bin/activate
+   
+   (Nota: En Windows sería: venv\Scripts\activate)
+
+7. INSTALAR DEPENDENCIAS
+   pip install -r requirements.txt
+
+8. CREAR CARPETAS NECESARIAS (si no existen)
+   mkdir -p uploads
+
+9. EJECUTAR LA APLICACIÓN
+   fastapi dev main.py
+
+   O alternativamente:
+   uvicorn main:app --reload --host 127.0.0.1 --port 8000
+
+========================================
+ACCESO A LA APLICACIÓN:
+========================================
+
+Una vez que la aplicación esté ejecutándose:
+
+- Aplicación principal: http://127.0.0.1:8000
+- Documentación API (Swagger): http://127.0.0.1:8000/docs
+- Documentación alternativa (ReDoc): http://127.0.0.1:8000/redoc
+
+========================================
+ESTRUCTURA DE CARPETAS FINAL:
+========================================
+
+OvaDetectAPI/
+├── .env                    # Variables de entorno (CREAR)
+├── ai/                     # Carpeta de modelos (CREAR)
+│   └── sample_model.h5     # Modelo de IA (CONSEGUIR)
+├── app/                    # Código de la aplicación
+├── uploads/                # Carpeta para archivos subidos (se crea automáticamente)
+├── venv/                   # Entorno virtual (se crea automáticamente)
+├── main.py                 # Archivo principal
+├── requirements.txt        # Dependencias
+└── README.md
+
+========================================
+SOLUCIÓN DE PROBLEMAS COMUNES:
+========================================
+
+PROBLEMA: "No module named 'app'"
+SOLUCIÓN: Asegúrate de estar en el directorio del proyecto y tener el entorno virtual activado
+
+PROBLEMA: "FileNotFoundError: ai/sample_model.h5"
+SOLUCIÓN: Conseguir el modelo de IA y colocarlo en la carpeta ai/
+
+PROBLEMA: "Permission denied"
+SOLUCIÓN: Verificar permisos de las carpetas o ejecutar con sudo (no recomendado)
+
+PROBLEMA: "Port already in use"
+SOLUCIÓN: Cambiar el puerto en .env o matar el proceso que usa el puerto 8000
+
+========================================
+COMANDOS ÚTILES:
+========================================
+
+# Desactivar entorno virtual
+deactivate
+
+# Ver procesos en puerto 8000
+lsof -i :8000
+
+# Matar proceso en puerto 8000
+kill -9 $(lsof -t -i:8000)
+
+# Verificar versión de Python
+python3 --version
+
+# Verificar si pip está instalado
+pip --version
+
+========================================
+NOTAS IMPORTANTES:
+========================================
+
+1. El archivo .env NO debe subirse a Git (debe estar en .gitignore)
+2. El modelo de IA es ESENCIAL para que funcione la aplicación
+3. Mantén el entorno virtual activado mientras trabajas en el proyecto
+4. La aplicación creará automáticamente la base de datos SQLite (app.db)
+5. Los archivos subidos se guardan en la carpeta "uploads/"
+
+
+
