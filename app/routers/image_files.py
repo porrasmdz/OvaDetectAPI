@@ -163,7 +163,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
         analysis_data = {
             "image_id": int(created_image[0]["id"]),
-            "pcos_probability": float(pred_prob),
+            "pcos_probability": float(1 - pred_prob),
             "confidence": float(confidence_score),
             "findings": str({"diagnosis": diagnosis}),
             "recommendations": str(clinical_recommendations),
@@ -189,7 +189,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
             "medical_analysis": {
                 "id": a_result[0]["id"] if a_result else None,
                 "diagnosis": diagnosis,
-                "pcos_probability": round(float(pred_prob), 4),
+                "pcos_probability": round(float(1 - pred_prob), 4),
                 "confidence_score": round(float(confidence_score), 3),
                 "requires_specialist_review": requires_review,
                 "clinical_recommendations": clinical_recommendations,
