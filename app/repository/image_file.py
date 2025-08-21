@@ -17,7 +17,7 @@ def get_one_image_file(filters: Dict[str, str]) -> Dict[str, Any]:
     return db.get_one("image_files", filters)
 
 def create_image_files(data_rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    print("CREAITNG IMAGE FILES", data_rows)
+            # Log removed for cleaner output
     return db.create_many("image_files", data_rows)
 
 def update_image_file(id: int, new_values: Dict[str, Any]) -> Dict[str, Any]:
